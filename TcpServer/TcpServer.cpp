@@ -22,7 +22,7 @@ void TcpServer::startServer()
 void TcpServer::incomingConnection(qintptr handle)
 {
     if(SocketList.size() <= MAX_CLIENTS) {
-        qDebug() << "Connecting to sockdesc [" << handle << "]";
+        qDebug() << "Connecting to socket descriptor [" << handle << "]";
 
         auto socket = new TcpSocket(handle);
         connect(socket, &TcpSocket::disconnected, this, &TcpServer::onClientDisconnect);
@@ -40,6 +40,9 @@ void TcpServer::incomingConnection(qintptr handle)
             auto iter {SocketList.begin()};
             const auto endIter {SocketList.end()};
 
+            //this is not a good loop
+            //everytime a new client is added, the entirety of the client list gets connected to every other client
+            //given 8 total clients, each client would have a total of 28 connections rather than 7 connections
             for(; iter != endIter; ++iter) {
                 auto s_iter {SocketList.begin()};
                 for(; s_iter != endIter; ++s_iter) {

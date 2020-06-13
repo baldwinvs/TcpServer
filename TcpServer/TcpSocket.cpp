@@ -25,7 +25,7 @@ TcpSocket::TcpSocket(qintptr socketDescriptor, QObject* parent)
 void TcpSocket::writeData_(const QByteArray &data)
 {
     // will write on server side window
-    qDebug() << "Write to" << "[" << sock_desc << "]" << data;
+    qDebug() << "Write to" << " [" << sock_desc << "]" << data;
     write(data);
 }
 
@@ -35,7 +35,7 @@ void TcpSocket::onReadyRead()
     QByteArray data {readAll()};
 
     // will write on server side window
-    qDebug() << "Data from" << " [" << sock_desc << "]" << data;
+    qDebug() << "Data from" << "[" << sock_desc << "]" << data;
 
     emit sendData(data);
 }
