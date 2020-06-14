@@ -63,8 +63,6 @@ void TcpServer::onClientDisconnect()
 {
     TcpSocket* socket {dynamic_cast<TcpSocket*>(sender())};
     SocketList.removeOne(socket);
-
-    delete socket;
 }
 
 void TcpServer::onThreadFinished()
